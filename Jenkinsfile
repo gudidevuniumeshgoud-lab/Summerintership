@@ -2,11 +2,8 @@ pipeline {
 
     agent any
 
-
     tools {
-
         nodejs "node22"
-
     }
 
 
@@ -26,7 +23,6 @@ pipeline {
         }
 
 
-
         stage("Backend Install") {
 
             steps {
@@ -42,7 +38,6 @@ pipeline {
             }
 
         }
-
 
 
         stage("Frontend Install") {
@@ -62,12 +57,11 @@ pipeline {
         }
 
 
-
         stage("Frontend Build") {
 
             steps {
 
-                echo "Building React Application"
+                echo "Building React Production Build"
 
                 dir("frontend") {
 
@@ -78,7 +72,6 @@ pipeline {
             }
 
         }
-
 
 
         stage("Docker Build") {
@@ -93,22 +86,40 @@ pipeline {
 
         }
 
-    }
 
+        stage("Docker Deploy") {
+
+            steps {
+
+                echo "Stopping Old Containers"
+
+                bat "docker compose down"
+
+
+                echo "Starting New Containers"
+
+                bat "docker compose up -d"
+
+            }
+
+        }
+
+    }
 
 
     post {
 
+
         success {
 
-            echo "CI Pipeline Completed Successfully"
+            echo "CI/CD Pipeline Completed Successfully"
 
         }
 
 
         failure {
 
-            echo "CI Pipeline Failed"
+            echo "CI/CD Pipeline Failed"
 
         }
 
