@@ -1,6 +1,15 @@
 pipeline {
 
-    agent any
+agent any
+
+
+environment {
+
+    MONGO_URI = credentials("MONGO_URI")
+
+    JWT_SECRET = credentials("JWT_SECRET")
+
+}
 
     tools {
         nodejs "node22"
@@ -72,6 +81,22 @@ pipeline {
             }
 
         }
+        stage("Create Environment File") {
+
+    steps {
+
+        echo "Creating backend environment file"
+
+        writeFile file: "backend/.env",
+        text: """
+PORT=5000
+MONGO_URI=${env.MONGO_URI}
+JWT_SECRET=${env.JWT_SECRET}
+"""
+
+    }
+
+}
 
 
         stage("Docker Build") {
