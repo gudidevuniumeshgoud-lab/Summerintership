@@ -1,1 +1,1 @@
-Summer Intership Project --> Studen Management System Project
+Summer Intership Project --> Student Management System Project
