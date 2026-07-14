@@ -1,4 +1,4 @@
-# 🚀 Automated CI/CD Pipeline for Containerized Student Management System
+# 🚀 Automated CI/CD Pipeline for Containerized Student Management System.
 
 ## 📌 Project Overview
 
