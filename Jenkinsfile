@@ -112,22 +112,25 @@ JWT_SECRET=${env.JWT_SECRET}
         }
 
 
-        stage("Docker Deploy") {
+stage("Docker Deploy") {
 
-            steps {
+    steps {
 
-                echo "Stopping Old Containers"
+        echo "Stopping Old Containers"
 
-                bat "docker compose down"
+        bat "docker compose down --remove-orphans"
 
+        echo "Removing containers with fixed names"
 
-                echo "Starting New Containers"
+        bat "docker rm -f sms-backend sms-frontend 2>NUL || exit /b 0"
 
-                bat "docker compose up -d"
+        echo "Starting New Containers"
 
-            }
+        bat "docker compose up -d"
 
-        }
+    }
+
+}
 
     }
 
