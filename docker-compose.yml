@@ -1,34 +1,25 @@
-
 services:
 
   backend:
-
     build: ./backend
-
     container_name: sms-backend
-
+    restart: always
     ports:
       - "5000:5000"
-
     env_file:
       - ./backend/.env
-
     volumes:
       - ./backend:/app
       - /app/node_modules
 
   frontend:
-
     build: ./frontend
-
     container_name: sms-frontend
-
+    restart: always
     ports:
       - "5173:5173"
-
     depends_on:
       - backend
-
     volumes:
       - ./frontend:/app
       - /app/node_modules
